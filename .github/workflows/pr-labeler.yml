@@ -1,0 +1,19 @@
+name: PR Labeler
+
+on:
+  push:
+    branches: ['main']
+    tags: [v*]
+  pull_request:
+    branches: ['main']
+
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  pr-labeler:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/labeler@v4

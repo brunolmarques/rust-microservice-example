@@ -1,0 +1,20 @@
+# Add 'repo' label to any root file change
+repo:
+  - '*'
+
+# Add 'gitops' lable to any changes within .github dir
+gitops:
+  - .github/*
+
+# Add 'ci' label to any change within .github/workflows dir
+ci:
+  - .github/workflows/*
+
+# Add 'source' label to any change to src files within src/source dir EXCEPT for docs
+source:
+  - any: ['src/**', '!src/docs/*', '!src/*/*.md']
+
+# Add 'docs' label to any .md file change
+docs:
+  - ./*.md
+  - ./**/*.md
