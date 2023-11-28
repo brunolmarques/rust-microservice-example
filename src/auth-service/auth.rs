@@ -95,7 +95,7 @@ impl Auth for AuthService {
             .expect("lock should not be poisoned")
             .create_user(req.username, req.password);
 
-        // TODO: Return a `SignUpResponse` with the appropriate `status_code` based on `result`.
+        // Return a `SignUpResponse` with the appropriate `status_code` based on `result`.
         match result {
             Ok(_) => {
                 let reply = Response::new(
@@ -126,7 +126,7 @@ impl Auth for AuthService {
 
         let req = request.into_inner();
 
-        // TODO: Delete session using `sessions_service`.
+        // Delete session using `sessions_service`.
         self.sessions_service
             .lock()
             .expect("lock should not be poisoned")
@@ -134,7 +134,7 @@ impl Auth for AuthService {
 
         // Create `SignOutResponse` with `status_code` set to `Success`
         let reply: SignOutResponse = SignOutResponse {
-            status_code: StatusCode:Success.into()
+            status_code: StatusCode::Success.into()
         }; 
 
         Ok(Response::new(reply))
