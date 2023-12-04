@@ -42,7 +42,10 @@ mod tests {
         assert_eq!(session_service.uuid_to_session.len(), 0);
         let session = session_service.create_session("123456");
         assert_eq!(session_service.uuid_to_session.len(), 1);
-        assert_eq!(session_service.uuid_to_session.get("123456").unwrap(), &session);
+        assert_eq!(
+            session_service.uuid_to_session.get("123456").unwrap(),
+            &session
+        );
     }
 
     #[test]

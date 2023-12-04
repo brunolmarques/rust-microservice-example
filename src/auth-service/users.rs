@@ -31,7 +31,7 @@ impl Users for UsersImpl {
         // Check if username already exist. If so return an error.
         if self.username_to_user.contains_key(&username) {
             return Err("Unable to create user. Username already exists.".to_owned());
-        } 
+        }
 
         let salt = SaltString::generate(&mut OsRng);
 
@@ -47,7 +47,8 @@ impl Users for UsersImpl {
         };
 
         // Add user to `username_to_user` and `uuid_to_user`.
-        self.uuid_to_user.insert(user.user_uuid.clone(), user.clone());
+        self.uuid_to_user
+            .insert(user.user_uuid.clone(), user.clone());
         self.username_to_user.insert(username, user);
 
         Ok(())
@@ -55,9 +56,9 @@ impl Users for UsersImpl {
 
     fn get_user_uuid(&self, username: String, password: String) -> Option<String> {
         // Retrieve `User` or return `None` is user can't be found.
-        let user: &User = self.username_to_user.get(&username)?; 
+        let user: &User = self.username_to_user.get(&username)?;
 
-        // Get user's password as `PasswordHash` instance. 
+        // Get user's password as `PasswordHash` instance.
         let hashed_password = user.password.clone();
         let parsed_hash = PasswordHash::new(&hashed_password).ok()?;
 

@@ -6,9 +6,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_build::configure()
         .out_dir(out_dir.clone())
         .file_descriptor_set_path(out_dir.join("authentication.bin"))
-        .compile(
-            &["proto/authentication.proto"], 
-            &["proto"]
-        )?;
+        .compile(&["proto/authentication.proto"], &["proto"])?;
     Ok(())
 }
