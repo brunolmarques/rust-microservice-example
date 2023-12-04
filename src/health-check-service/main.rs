@@ -37,7 +37,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         // Log the response
         println!(
             "SIGN UP RESPONSE STATUS: {:?}",
-            StatusCode::from_i32(response.into_inner().status_code)
+            StatusCode::try_from(response.into_inner().status_code)
         );
 
         // ---------------------------------------------
@@ -53,7 +53,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         println!(
             "SIGN IN RESPONSE STATUS: {:?}",
-            StatusCode::from_i32(response.status_code) // Log response status_code
+            StatusCode::try_from(response.status_code) // Log response status_code
         );
 
         // ---------------------------------------------
@@ -68,7 +68,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         println!(
             "SIGN OUT RESPONSE STATUS: {:?}",
-            StatusCode::from_i32(response.into_inner().status_code) // Log response status_code
+            StatusCode::try_from(response.into_inner().status_code) // Log response status_code
         );
 
         println!("--------------------------------------",);
