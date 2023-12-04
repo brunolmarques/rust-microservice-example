@@ -72,11 +72,11 @@ impl Auth for AuthService {
             .expect("lock should not be poisoned")
             .create_session(&user_uuid);
 
-            let reply = SignInResponse {
-                status_code: StatusCode::Success.into(),
-                user_uuid,
-                session_token,
-            };
+        let reply = SignInResponse {
+            status_code: StatusCode::Success.into(),
+            user_uuid,
+            session_token,
+        };
 
         Ok(Response::new(reply))
     }
@@ -98,20 +98,16 @@ impl Auth for AuthService {
         // Return a `SignUpResponse` with the appropriate `status_code` based on `result`.
         match result {
             Ok(_) => {
-                let reply = Response::new(
-                    SignUpResponse {
-                        status_code: StatusCode::Success.into()
-                    }
-                );
+                let reply = Response::new(SignUpResponse {
+                    status_code: StatusCode::Success.into(),
+                });
 
                 Ok(reply)
             }
             Err(_) => {
-                let reply = Response::new(
-                    SignUpResponse {
-                        status_code: StatusCode::Failure.into()
-                    }
-                );
+                let reply = Response::new(SignUpResponse {
+                    status_code: StatusCode::Failure.into(),
+                });
 
                 Ok(reply)
             }
@@ -134,8 +130,8 @@ impl Auth for AuthService {
 
         // Create `SignOutResponse` with `status_code` set to `Success`
         let reply: SignOutResponse = SignOutResponse {
-            status_code: StatusCode::Success.into()
-        }; 
+            status_code: StatusCode::Success.into(),
+        };
 
         Ok(Response::new(reply))
     }
@@ -143,7 +139,7 @@ impl Auth for AuthService {
 
 #[cfg(test)]
 mod tests {
-    use crate::{users::UsersImpl, sessions::SessionsImpl};
+    use crate::{sessions::SessionsImpl, users::UsersImpl};
 
     use super::*;
 
@@ -162,8 +158,8 @@ mod tests {
         let result = auth_service.sign_in(request).await.unwrap().into_inner();
 
         assert_eq!(result.status_code, StatusCode::Failure.into());
-        assert_eq!(result.user_uuid.is_empty(), true);
-        assert_eq!(result.session_token.is_empty(), true);
+        assert!(result.user_uuid.is_empty());
+        assert!(result.session_token.is_empty());
     }
 
     #[tokio::test]
@@ -185,8 +181,8 @@ mod tests {
         let result = auth_service.sign_in(request).await.unwrap().into_inner();
 
         assert_eq!(result.status_code, StatusCode::Failure.into());
-        assert_eq!(result.user_uuid.is_empty(), true);
-        assert_eq!(result.session_token.is_empty(), true);
+        assert!(result.user_uuid.is_empty());
+        assert!(result.session_token.is_empty());
     }
 
     #[tokio::test]
@@ -208,8 +204,8 @@ mod tests {
         let result = auth_service.sign_in(request).await.unwrap().into_inner();
 
         assert_eq!(result.status_code, StatusCode::Success.into());
-        assert_eq!(result.user_uuid.is_empty(), false);
-        assert_eq!(result.session_token.is_empty(), false);
+        assert!(!result.user_uuid.is_empty());
+        assert!(!result.session_token.is_empty());
     }
 
     #[tokio::test]
@@ -258,7 +254,7 @@ mod tests {
         let auth_service = AuthService::new(users_service, sessions_service);
 
         let request = tonic::Request::new(SignOutRequest {
-            session_token: "".to_owned()
+            session_token: "".to_owned(),
         });
 
         let result = auth_service.sign_out(request).await.unwrap();
