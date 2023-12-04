@@ -158,8 +158,8 @@ mod tests {
         let result = auth_service.sign_in(request).await.unwrap().into_inner();
 
         assert_eq!(result.status_code, StatusCode::Failure.into());
-        assert_eq!(result.user_uuid.is_empty(), true);
-        assert_eq!(result.session_token.is_empty(), true);
+        assert!(result.user_uuid.is_empty());
+        assert!(result.session_token.is_empty());
     }
 
     #[tokio::test]
@@ -181,8 +181,8 @@ mod tests {
         let result = auth_service.sign_in(request).await.unwrap().into_inner();
 
         assert_eq!(result.status_code, StatusCode::Failure.into());
-        assert_eq!(result.user_uuid.is_empty(), true);
-        assert_eq!(result.session_token.is_empty(), true);
+        assert!(result.user_uuid.is_empty());
+        assert!(result.session_token.is_empty());
     }
 
     #[tokio::test]
@@ -204,8 +204,8 @@ mod tests {
         let result = auth_service.sign_in(request).await.unwrap().into_inner();
 
         assert_eq!(result.status_code, StatusCode::Success.into());
-        assert_eq!(result.user_uuid.is_empty(), false);
-        assert_eq!(result.session_token.is_empty(), false);
+        assert!(!result.user_uuid.is_empty());
+        assert!(!result.session_token.is_empty());
     }
 
     #[tokio::test]

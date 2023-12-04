@@ -1,5 +1,4 @@
 use std::{env, path::PathBuf};
-use tonic_build;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
