@@ -20,7 +20,7 @@ struct Cli {
 }
 
 #[derive(Subcommand)]
-enum Commands {
+pub enum Commands {
     SignIn {
         #[arg(short, long)]
         username: String,
